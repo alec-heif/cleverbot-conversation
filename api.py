@@ -20,4 +20,4 @@ def getSession():
 botSession = getSession()
 
 for line in sys.stdin:
-    return botSession.think(line)
+    print botSession.think(line)

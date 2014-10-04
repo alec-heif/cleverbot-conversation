@@ -16,14 +16,14 @@ function sendMessage(message, number) {
       from: '+13132087874',
       body: message
     });
-});
+};
 
-function killProcess = function(process, from) {
+function killProcess(process, from) {
     process.end(function (err) {
         console.log('Killed procees ' + from);
     });
     delete threads[from];
-}
+};
 
 router.post('/', function(req, res) {
     var from = req.body.From;
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
                     killProcess(process, from);
                 }, 
                 300000
-            );
+            )
         };
     }
 });
