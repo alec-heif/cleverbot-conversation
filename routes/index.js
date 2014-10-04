@@ -22,6 +22,7 @@ function killProcess = function(process, from) {
     process.end(function (err) {
         console.log('Killed procees ' + from);
     });
+    delete threads[from];
 }
 
 router.post('/', function(req, res) {
