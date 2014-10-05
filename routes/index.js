@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
     }
 
     threads[from] = threads[from] || new Cleverbot();
-    thread.write(message, callback);
+    threads[from].write(message, callback);
     res.render('index/index');
 });
 
