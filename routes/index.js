@@ -14,6 +14,7 @@ function killProcess(process, from) {
     delete threads[from];
 };
 
+
 router.get('/', function(req, res) {
     if(req.query.Body != undefined && req.query.From != undefined && req.query.To != undefined) {
         var message = req.query.Body;
@@ -38,9 +39,14 @@ router.get('/', function(req, res) {
                 body: resp.message
             });
         }
+        
+
 
         threads[to+from] = threads[to+from] || new Cleverbot();
         threads[to+from].write(message, callback);
+        if(Math.random() < .05){
+          setTimeout(function() {threads[to+from].write(message, callback)}, 30000);
+        }
     }
     res.render('index/index', {number: NUMBERS[Math.floor(Math.random() * NUMBERS.length)] });
 });
