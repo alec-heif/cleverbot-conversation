@@ -8,15 +8,9 @@ from random import randint
 # creates a new cleverbot factory and returns it as a session
 def getSession():
     factory = ChatterBotFactory()
-    rInt = randint(0,1)
-    if rInt == 1:
-        bot1 = factory.create(ChatterBotType.CLEVERBOT)
-    else:
-        bot1 = factory.create(ChatterBotType.PANDORABOTS, 'b0dafd24ee35a477')
-    
-	return bot1.create_session()
-	
-	
+    bot1 = factory.create(ChatterBotType.CLEVERBOT)    
+    return bot1.create_session()
+
 botSession = getSession()
 
 for line in sys.stdin:

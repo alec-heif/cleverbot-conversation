@@ -44,7 +44,7 @@ router.get('/', function(req, res) {
     else {
         console.log("in else", message, from);
         var process = new PythonShell('api.py');
-        message = message + '\n';
+        message = message + '\x04';
         process.on('message', function(message) {
             console.log('Message: ' + message);
             sendMessage(message, from);
