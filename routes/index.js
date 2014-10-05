@@ -15,27 +15,34 @@ function killProcess(process, from) {
 };
 
 router.get('/', function(req, res) {
-    if(!req.query.Body || !req.query.From) {
-        return;
-    }
-    var message = req.query.Body;
-    var from = req.query.From;
-    var to = req.query.To;
-    console.log(to);
-    console.log(SIDS[to]);
-    var client = new Twilio.RestClient(SIDS[to], TOKENS[to]);
+    if(req.query.Body != undefined && req.query.From != undefined && req.query.To != undefined) {
+        var message = req.query.Body;
+        var from = req.query.From;
+        var to = req.query.To;
+        to = NUMBERS.filter(function(val) {
+            return to.indexOf(val) > -1;
+        })[0];
+        NUMBERS.forEach(function(val, index) {
+            if (to.indexOf(val) > -1) {
+                to = val;
+            }
+        })
+        console.log(to);
+        console.log(SIDS[to]);
+        var client = new Twilio.RestClient(SIDS[to], TOKENS[to]);
 
-    function callback(resp) {
-        client.sms.messages.create({
-            to: from,
-            from: to,
-            body: resp.message
-        });
-    }
+        function callback(resp) {
+            client.sms.messages.create({
+                to: from,
+                from: to,
+                body: resp.message
+            });
+        }
 
-    threads[to+from] = threads[to+from] || new Cleverbot();
-    threads[to+from].write(message, callback);
-    res.render('index/index');
+        threads[to+from] = threads[to+from] || new Cleverbot();
+        threads[to+from].write(message, callback);
+    }
+    res.render('index/index', {number: NUMBERS[Math.floor(Math.random() * NUMBERS.length)] });
 });
 
 module.exports = router;

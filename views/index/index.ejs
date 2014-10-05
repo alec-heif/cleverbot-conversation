@@ -7,17 +7,6 @@
   <body>
     <h3>Clever Text: The <i>smartest</i> in texting innovation</h3>
 
-    <h5>Here's your own number to start: 
-    <% if (Math.random() < .33){ %>
-    	<% var n = "13132087874" %>
-    <% } else { %>
-    	<% if (Math.random() < .5) { %>
-    		<% var n = "14423336273" %>	
-    	<% } else { %>
-	    	<% var n = "12405472780" %>
-    	<% } %>
-    <% } %>
-    %= n %
-	</h5>
+    <h5>Here's your own number to start: <%= number %></h5>
   </body>
 </html>
