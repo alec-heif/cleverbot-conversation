@@ -74,6 +74,7 @@ Cleverbot.prototype = {
     req.write(Cleverbot.encodeParams(body));
     req.end();
   }
+
 };
 
 module.exports = Cleverbot;

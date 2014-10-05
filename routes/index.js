@@ -9,6 +9,7 @@ var TOKENS = {'3132087874':'223bce8a531c574d21c3ca3e78f385f0', '2405472780':'591
 var Cleverbot = require('../cleverbot');
 
 var threads = {};
+var timeOutMsg = {};        
 
 function killProcess(process, from) {
     delete threads[from];
@@ -31,7 +32,6 @@ router.get('/', function(req, res) {
         console.log(to);
         console.log(SIDS[to]);
         var client = new Twilio.RestClient(SIDS[to], TOKENS[to]);
-
         function callback(resp) {
             client.sms.messages.create({
                 to: from,
@@ -39,14 +39,24 @@ router.get('/', function(req, res) {
                 body: resp.message
             });
         }
-        
+
+        function update(to, from){
+            clearTimeout(timeOutMsg[to+from]);
+            if(Math.random() < .3){
+              timeOutMsg[to+from] = setTimeout(function() {
+                client.sms.messages.create({
+                  to: from,
+                  from: to,
+                  body: "I miss you :("
+                });
+              }, 30000);
+            } 
+        }
 
 
         threads[to+from] = threads[to+from] || new Cleverbot();
         threads[to+from].write(message, callback);
-        if(Math.random() < .05){
-          setTimeout(function() {threads[to+from].write(message, callback)}, 30000);
-        }
+        update(to,from);
     }
     res.render('index/index', {number: NUMBERS[Math.floor(Math.random() * NUMBERS.length)] });
 });
