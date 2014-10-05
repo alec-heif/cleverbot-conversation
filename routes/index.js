@@ -49,7 +49,7 @@ router.get('/', function(req, res) {
                   to: from,
                   from: to,
                   body: "I miss you",
-                  mediaUrl: "http://static3.shop033.com/resources/18/160536/picture/16/85402902.jpg"
+                  mediaUrl: "http://imgur.com/eHFXJyw.png"
                 });
               }, Math.floor(Math.random()*1 + 10000));
             } 
