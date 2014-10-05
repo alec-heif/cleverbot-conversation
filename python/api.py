@@ -3,6 +3,7 @@ from chatterbotapi import ChatterBotFactory, ChatterBotType
 #from twilio.rest import TwilioRestClient
 import sys
 from random import randint
+import time
 	
 # function getSession:
 # creates a new cleverbot factory and returns it as a session
@@ -13,5 +14,8 @@ def getSession():
 
 botSession = getSession()
 
-for line in sys.stdin:
+while True:
+    line = raw_input()
     print botSession.think(line)
+    sys.stdout.flush()
+    time.sleep(.01)

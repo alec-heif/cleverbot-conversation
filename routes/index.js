@@ -21,9 +21,7 @@ function sendMessage(message, number) {
 };
 
 function killProcess(process, from) {
-    process.end(function (err) {
-        console.log('Killed process ' + from);
-    });
+    process.kill('SIGINT');
     delete threads[from];
 };
 
@@ -39,17 +37,16 @@ router.get('/', function(req, res) {
             }, 
             300000
         );
-        thread.process.send(message);
+        thread.process.stdin.write(message);
     }
     else {
         console.log("in else", message, from);
         var process = new PythonShell('api.py');
-        message = message + '\x04';
-        process.on('message', function(message) {
-            console.log('Message: ' + message);
-            sendMessage(message, from);
-        });
         process.send(message);
+        process.on('message', function(message) {
+            console.log(message);
+            sendMessage(message, from);
+        })
         threads[from] = {
             process: process, 
             killer: setTimeout(
