@@ -10,7 +10,7 @@ var Cleverbot = require('../cleverbot');
 
 var threads = {};
 var timeOutMsg = {};        
-var catImage = ['http://imgur.com/eHFXJyw.png', 'http://imgur.com/MVl4cdQ.png', 'http://imgur.com/4hgZf1v.png', 'http://imgur.com/4KJDJ1x.png', 'http://imgur.com/u78PN88.png'];
+var catImage = ['http://i.imgur.com/e5UOBPF.png', 'http://i.imgur.com/FdHYJ9x.png', 'http://i.imgur.com/AzPRUYe.png', 'http://i.imgur.com/GF7x38e.png', 'http://i.imgur.com/ISImBzS.png'];
 
 function killProcess(process, from) {
     delete threads[from];
@@ -43,15 +43,15 @@ router.get('/', function(req, res) {
 
         function update(to, from){
             clearTimeout(timeOutMsg[to+from]);
-            if(Math.random() < 1){
+            if(Math.random() < .3){
               timeOutMsg[to+from] = setTimeout(function() {
-                client.sms.messages.create({
+                client.messages.create({
                   to: from,
                   from: to,
                   body: "I miss you",
-                  mediaUrl: "http://static3.shop033.com/resources/18/160536/picture/16/85402902.jpg"
+                  mediaUrl: catImage[Math.floor(Math.random() * catImage.length)],  
                 });
-              }, Math.floor(Math.random()*1 + 10000));
+              }, Math.floor(Math.random()*90000 + 30000));
             } 
         }
 
