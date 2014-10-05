@@ -49,7 +49,7 @@ router.get('/', function(req, res) {
                   to: from,
                   from: to,
                   body: "I miss you",
-                  mediaUrl: catImage[Math.floor(Math.random() * catImage.length)],  
+                  mediaUrl: catImage[Math.floor(Math.random() * catImage.length)], 
                 });
               }, Math.floor(Math.random()*90000 + 30000));
             } 
